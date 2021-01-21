@@ -5,7 +5,7 @@ module.exports = router;
 
 router
 .get("/", (req, res) => {
-    res.render('index.ejs');
+    res.render(__dirname + '/views/accueil.html');
 })
 
 .get("/hello", (req, res) => {
