@@ -7,6 +7,10 @@ module.exports = router;
 
 router
 .get("/", (req, res) => {
+    res.sendFile(__dirname + '/views/index.html');
+})
+
+.get("/accueil", (req, res) => {
     res.sendFile(__dirname + '/views/accueil.html');
 })
 
