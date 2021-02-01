@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
+
 module.exports = router;
+
 
 router
 .get("/", (req, res) => {
-    res.render(__dirname + '/views/accueil.html');
+    res.sendFile(__dirname + '/views/accueil.html');
 })
 
 .get("/hello", (req, res) => {
