@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const router = require('./router');
 const path = require('path');
+const cloud = require('./cloud');
+
 
 app.use(morgan('combined'));
 app.use(cors());
