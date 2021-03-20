@@ -4,13 +4,20 @@ const port = 8000;
 
 const cors = require('cors');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const router = require('./router');
 const path = require('path');
-const cloud = require('./cloud');
 
+const bodyParser = require('body-parser');
+const { graphqlHTTP } = require('express-graphql');
+var { graphql, buildSchema } = require('graphql');
+const router = require('./router');
 
-app.use(morgan('combined'));
+const graphQlSchema = require('./graphql/schema');
+const graphQlResolvers = require('./graphql/resolver');
+
+// -----------------------------------------------------------------
+//              Ajout et configuration d'un middleware
+// -----------------------------------------------------------------
+//app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -18,14 +25,22 @@ app.use(bodyParser.urlencoded({
 }));
 
 
+app.use(
+    '/graphql',
+    graphqlHTTP({
+      schema: graphQlSchema,
+      rootValue: graphQlResolvers,
+      graphiql: true
+    })
+  );
+  
+
 app.use(express.static(__dirname));
 
+// Set the view engine to ejs
+app.set('view engine', 'ejs');
 
-app.use(router); //root are define in router.js
-//app.use('/static', express.static(path.join(__dirname, '/public')));
-//Start server with $npm Start
-
-
+app.use(router);
 
 app.listen(port, () => {
     console.log('Server app listening on port ' + port);

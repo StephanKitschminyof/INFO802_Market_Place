@@ -1,0 +1,27 @@
+<%- include('header.ejs') %>
+<%- include('menu.ejs') %>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 buy-img">
+            <img src="<%= product.pictureLink%>" alt="Book picture">
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 buy-information">
+            <h1><%= product.name %></h1>
+            <h2><%= product.title %></h2>
+            <h3><%= product.author %></h3>
+            <p>Contact : <%= seller.email %></p>
+            <p>Price = <%= product.price %></p>
+            <p>Delivery = <%= delivery %></p>
+            <form action="buyBook" method="POST">
+                <input type="submit" value="Buy">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+<%- include('footer.ejs') %>
