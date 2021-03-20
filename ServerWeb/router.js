@@ -22,22 +22,22 @@ router
 })
 
 .post("/login", async (req, res) => {
-    console.log("Login ...");
-    //vérification si la connection est possible
+
+    //vérification connection
     if(await market.connection(req.body.email, req.body.mdp)){
-        //get des info sur l'user
+
+        //Récupération des informations sur l'utilisateur que ce connecte
         user = await market.getUserConnected();
 
-        //get des produits pour les afficher
+        //Récupérations de la liste des produits
         var products = await market.getAllProducts();
-        
-        console.log("...Ok !");
+
         res.render(__dirname + '/views/accueil.ejs', {
             products: products
         });
     }
     else{
-        console.log("...Fail !");
+        //Echec de connection
         res.render(__dirname + '/views/index.ejs');
     }    
 })
@@ -65,19 +65,36 @@ router
 
 .post("/buy", async (req, res) => {
     
+    //Récupération du produit 
     var product = await market.getProductById(req.body.idProduct);
-    //console.log("Produit");
-    console.log(product)
+    //console.log(product)
 
+    //Récupération du vendeur du produit
     var seller = await market.getUserById(product.seller);
-    console.log(seller);
+    //console.log(seller);
 
-   /*res.render(__dirname + '/views/buy.ejs', {
+
+    var delivery = 10;
+    console.log(delivery);
+    //Récupération du frais de livraison [SOAP] 
+    delivery = await market.getDelivery(product.weight);
+    console.log("delivery await qui n'await pas");
+    console.log(delivery);
+
+
+    //TODO trouvé pour utiliser la valeur delivery récup du soap
+
+    delivery = 10;
+
+    res.render(__dirname + '/views/buy.ejs', {
         product: product,
         seller: seller,
         delivery: delivery
-    }); */
-    
+    });
+})
+
+.post("/buyBook", async (req, res) => {
+
 })
 
 //Erreur 404

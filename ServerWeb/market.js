@@ -2,10 +2,11 @@ var { graphql } = require('graphql');
 const graphQlSchema = require('./graphql/schema');
 const {resolver, addProductToFirebase, addUserToFirebase} = require('./graphql/resolver');
 const { response } = require('express');
+const soap = require('soap');
 
 
 var firebase;
-
+const urlSoap = 'http://localhost:8000/wsdl?wsdl';
 
 
 var userConnected = null;
@@ -74,6 +75,27 @@ module.exports = {
 
     async addProduct(product, seller){
         await addProductToFirebase(product, seller);
+    },
+
+
+    async getDelivery(weight){
+
+        var args_delivery = {
+            distance: "0",
+            weight: weight
+        }
+
+        soap.createClientAsync(urlSoap).then((client) => {
+            return client.DeliveryCalulator(args_delivery, function(err, res){
+                console.log("SOAPOOOAOAOA");
+                console.log(res);
+                return res;
+            });
+        });
+
     }
+
+    
+ 
 };
 
