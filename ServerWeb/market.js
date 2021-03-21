@@ -13,6 +13,9 @@ var userConnected = null;
 
 module.exports = {
 
+    /**
+     * Just a hello world grapqh call
+     */
     hello(){
         graphql(graphQlSchema, '{ hello }', resolver).then((response) => {
             console.log(response);

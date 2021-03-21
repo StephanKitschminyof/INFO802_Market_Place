@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/05867590-e5b9-45e3-be79-1228b4c8d99b/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/marketplacekitschminyof",
+    "appService.deploySubpath": "."
+}

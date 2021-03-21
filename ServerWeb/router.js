@@ -103,7 +103,6 @@ router
 })
 
 .post("/buyBook", async (req, res) => {
-    console.log(req.body);
 
    mangopay.marketSale(req.body.userMangopayId, req.body.sellerMangopayId,  req.body.price +req.body.delivery);
 

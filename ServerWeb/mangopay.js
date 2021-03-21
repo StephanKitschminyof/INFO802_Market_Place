@@ -60,7 +60,7 @@ async function getCards(userId){
     return card;
 }
 
-//TODO
+//TODO (payIn Card)
 async function payCardToWallet(user, user_wallet, user_card, debited_amount){
     var data = {
         "AuthorId": user.Id,
@@ -139,6 +139,12 @@ async function walletToWallet(buyer, buyer_wallet, seller, seller_wallet, amount
     return true;
 }
 
+/**
+ * This function does the processus to realise the purchase
+ * @param {String} idUser_Buyer 
+ * @param {String} idUser_Seller 
+ * @param {Number} amount 
+ */
 async function marketSale(idUser_Buyer, idUser_Seller, amount){
     //1 - Get buyer 
     var buyer = await getUser(idUser_Buyer);
@@ -152,7 +158,7 @@ async function marketSale(idUser_Buyer, idUser_Seller, amount){
     var buyer_cards = await getCards(buyer.Id);
     //console.log(buyer_cards[0])
 
-//    //4 - Transfert Buyer card to Buyer wallet
+    //4 - Transfert Buyer card to Buyer wallet TODO 
     //payCardToWallet(buyer, buyer_wallets[0], buyer_cards[0], amount);
 
     //5 - Get Seller
@@ -163,15 +169,6 @@ async function marketSale(idUser_Buyer, idUser_Seller, amount){
 
     //7 - Buyer Wallet to Seller Wallet
     await walletToWallet(buyer, buyer_wallets[0], seller, seller_wallets[0], amount);
-}
-
-
-
-function main(){
-    var idBuyer = 98397761;
-    var idSeller = 98393361;
-
-    marketSale(idBuyer, idSeller, 10);
 }
 
 

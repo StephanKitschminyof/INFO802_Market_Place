@@ -25,7 +25,9 @@ app.use(bodyParser.urlencoded({
     extended:true
 }));
 
-
+// -----------------------------------------------------------------
+//              Ajout et configuration de graphql
+// -----------------------------------------------------------------
 app.use(
     '/graphql',
     graphqlHTTP({
@@ -35,14 +37,16 @@ app.use(
     })
   );
   
-
+//To send css, img, ...
 app.use(express.static(__dirname));
 
-// Set the view engine to ejs
+//Set the view engine to ejs
 app.set('view engine', 'ejs');
 
+//Set the router
 app.use(router);
 
+//Start the server
 app.listen(port, () => {
     console.log('Server app listening on port ' + port);
     console.log('Go http://localhost:'+port);
