@@ -14,14 +14,17 @@
             <p>Contact : <%= seller.email %></p>
             <p>Price = <%= product.price %>€</p>
             <p>Delivery = <%= delivery %>€</p>
-            <form action="buyBook" method="POST">
-                <input type="submit" value="Buy">
+           
+            <form action="/buyBook" method="POST" id="buyForm">
+                <input type="hidden" name="userMangopayId" id="userMangopayId" value="<%= user.mangoPayId%>">
+                <input type="hidden" name="sellerMangopayId" id="sellerMangopayId" value="<%= seller.mangoPayId%>">
+                <input type="hidden" name="price" id="price" value="<%= product.price%>">
+                <input type="hidden" name="delivery" id="delivery" value="<%= delivery%>">
+                <button>Buy socket</button>    
             </form>
         </div>
     </div>
 
 </div>
-
-
 
 <%- include('footer.ejs') %>

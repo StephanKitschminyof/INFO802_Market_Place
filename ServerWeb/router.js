@@ -12,8 +12,10 @@ module.exports = router;
 
 
 const market = require('./market');
+const mangopay = require('./mangopay');
 
 var user;
+var product;
 
 router
 .get("/", (req, res) => {
@@ -42,6 +44,13 @@ router
     }    
 })
 
+.get("/home", async (req, res) => {
+    var products = await market.getAllProducts();
+    res.render(__dirname + '/views/accueil.ejs', {
+        products: products
+    });
+})
+
 .get("/sell", (req, res) => {
     res.render(__dirname + '/views/sell.ejs');
 })
@@ -64,7 +73,7 @@ router
 })
 
 .post("/buy", async (req, res) => {
-    
+    console.log("here");
     //Récupération du produit 
     var product = await market.getProductById(req.body.idProduct);
     //console.log(product)
@@ -74,27 +83,35 @@ router
     //console.log(seller);
 
 
-    var delivery = 10;
-    console.log(delivery);
+    var delivery;
+
     //Récupération du frais de livraison [SOAP] 
-    delivery = await market.getDelivery(product.weight);
+    delivery = await market.getDelivery(product.weight); //<TODO>
     console.log("delivery await qui n'await pas");
     console.log(delivery);
 
-
     //TODO trouvé pour utiliser la valeur delivery récup du soap
-
     delivery = 10;
+
 
     res.render(__dirname + '/views/buy.ejs', {
         product: product,
         seller: seller,
+        user: user,
         delivery: delivery
     });
 })
 
 .post("/buyBook", async (req, res) => {
+    console.log(req.body);
 
+   mangopay.marketSale(req.body.userMangopayId, req.body.sellerMangopayId,  req.body.price +req.body.delivery);
+
+   var products = await market.getAllProducts();
+
+   res.render(__dirname + '/views/accueil.ejs', {
+       products: products
+   });
 })
 
 //Erreur 404

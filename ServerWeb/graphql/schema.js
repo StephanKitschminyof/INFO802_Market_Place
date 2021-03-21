@@ -5,6 +5,7 @@ var schema = buildSchema(`
     type User {
         name: String
         id: String
+        mangoPayId: String
         email: String
         password: String
     }

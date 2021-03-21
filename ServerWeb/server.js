@@ -14,6 +14,7 @@ const router = require('./router');
 const graphQlSchema = require('./graphql/schema');
 const graphQlResolvers = require('./graphql/resolver');
 
+
 // -----------------------------------------------------------------
 //              Ajout et configuration d'un middleware
 // -----------------------------------------------------------------

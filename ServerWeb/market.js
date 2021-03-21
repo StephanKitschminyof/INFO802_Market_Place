@@ -25,7 +25,7 @@ module.exports = {
 
     async getUserById(userId){
         var user;
-        var query = '{ userById( userId: \"'+userId+'\") {id, name, email} }';
+        var query = '{ userById( userId: \"'+userId+'\") {id, name, email, mangoPayId} }';
         
         await graphql(graphQlSchema, query, resolver).then((response) => {
             user = response.data.userById;
@@ -35,7 +35,7 @@ module.exports = {
 
     async connection(email, mdp){
         var user;
-        var query = '{ userByEmail(userEmail: \"'+email+'\"){ id, name, email, password }}';
+        var query = '{ userByEmail(userEmail: \"'+email+'\"){ id, name, email, mangoPayId, password }}';
 
         await graphql(graphQlSchema, query, resolver).then((response) => {
             user = response.data.userByEmail;
